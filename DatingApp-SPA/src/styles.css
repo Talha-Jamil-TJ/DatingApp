@@ -3,3 +3,7 @@
 button {
   margin-right: 5px;
 }
+
+a {
+  cursor: pointer;
+}

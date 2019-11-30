@@ -20,10 +20,14 @@ export class ErrorInterceptor implements HttpInterceptor {
           }
 
           if (error.status === 401) {
-            return throwError('Unauthorized');
+            return throwError('Operation Failed');
           }
 
           if (error.status === 400) {
+            if (typeof error.error === 'string') {
+              return throwError(error.error);
+            }
+
             const serverError = error.error.errors;
             // let internalErrors = '';
             let modelStateErrors = '';

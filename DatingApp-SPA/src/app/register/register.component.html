@@ -1,32 +1,58 @@
-<form #registerForm="ngForm" (ngSubmit)="register()">
+<form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
   <h2 class="text-center text-primary">Sign Up</h2>
 
   <hr/>
   <div class="form-group">
     <input
-      [(ngModel)]="model.username"
-      class="form-control"
-      name="username"
-      placeholder="Username"
-      required
-      type="text"
+        #username="ngModel"
+        [class.is-invalid]="!username.valid && username.touched"
+        class="form-control"
+        name="username"
+        placeholder="Username"
+        required
+        type="text"
+        [class.is-valid]="username.valid && username.touched"
+        ngModel
     />
+    <div
+      *ngIf="!username.valid && username.touched"
+      class="invalid-feedback"
+    >
+      Please enter a valid username
+    </div>
   </div>
-
 
   <div class="form-group">
     <input
-      [(ngModel)]="model.password"
-      class="form-control"
-      name="password"
-      placeholder="Password"
-      required
-      type="password"
+        #password="ngModel"
+        [class.is-invalid]="!password.valid && password.touched"
+        [class.is-valid]="password.valid && password.touched"
+        minlength="4"
+        class="form-control"
+        name="password"
+        placeholder="Password"
+        required
+        ngModel
+        type="password"
     />
+    <div
+      *ngIf="!password.valid && password.touched"
+      class="invalid-feedback"
+    >
+      Please enter a valid password, at least 4 characters long
+    </div>
   </div>
 
   <div class="form-group text-center">
-    <button class="btn btn-success" type="submit">Register</button>
-    <button (click)="cancel()" class="btn btn-default" type="button">Cancel</button>
+    <button
+      [disabled]="!registerForm.valid"
+      class="btn btn-success"
+      type="submit"
+    >
+      Register
+    </button>
+    <button (click)="cancel()" class="btn btn-default" type="button">
+      Cancel
+    </button>
   </div>
 </form>

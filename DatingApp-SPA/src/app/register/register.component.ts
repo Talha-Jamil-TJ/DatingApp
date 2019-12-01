@@ -1,4 +1,5 @@
 import {Component, EventEmitter, OnInit, Output,} from '@angular/core';
+import {NgForm} from '@angular/forms';
 
 import {AuthService} from '../_services/auth.service';
 import {AlertifyService} from '../_services/alertify.service';
@@ -21,14 +22,12 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  register() {
-    this.authService.register(this.model).subscribe(
+  register(form: NgForm) {
+    this.authService.register(form.form.value).subscribe(
       () => {
-        // console.log('registration successful');
         this.alertify.success('Registration Successful');
       },
       (error) => {
-        // console.log(error);
         this.alertify.error(error);
       },
     );

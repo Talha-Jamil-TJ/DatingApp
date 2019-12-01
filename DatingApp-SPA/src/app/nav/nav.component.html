@@ -43,6 +43,9 @@
     >
       <input
         [(ngModel)]="model.username"
+        #username="ngModel"
+        [class.is-invalid]="!username.valid && username.touched"
+        [class.is-valid]="username.valid && username.touched"
         class="form-control mr-sm-2"
         name="username"
         placeholder="Username"
@@ -51,10 +54,14 @@
       />
       <input
         [(ngModel)]="model.password"
+        #password="ngModel"
+        [class.is-invalid]="!password.valid && password.touched"
+        [class.is-valid]="password.valid && password.touched"
         class="form-control mr-sm-2"
         name="password"
         placeholder="Password"
         required
+        minlength="4"
         type="password"
       />
       <button

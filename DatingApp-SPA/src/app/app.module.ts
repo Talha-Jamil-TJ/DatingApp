@@ -21,6 +21,9 @@ import {MemberDetailComponent} from './members/member-detail/member-detail.compo
 import {MemberDetailResolver} from './_resolvers/member-detail.resolver';
 import {MemberListsResolver} from './_resolvers/member-lists.resolver';
 import {NgxGalleryModule} from 'ngx-gallery';
+import {MembersEditComponent} from './members/members-edit/members-edit.component';
+import {MemberEditResolver} from './_resolvers/member-edit.resolver';
+import {PreventUnsavedChanges} from './_guards/prevent-unsaved-changes.guard';
 
 export function localTokenGetter() {
   return localStorage.getItem('token');
@@ -37,6 +40,7 @@ export function localTokenGetter() {
     MessagesComponent,
     MemberCardComponent,
     MemberDetailComponent,
+    MembersEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +64,8 @@ export function localTokenGetter() {
     AuthGuard,
     MemberDetailResolver,
     MemberListsResolver,
+    MemberEditResolver,
+    PreventUnsavedChanges,
   ],
   bootstrap: [AppComponent],
 })

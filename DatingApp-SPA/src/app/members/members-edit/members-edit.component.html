@@ -15,7 +15,7 @@
       <div class="card">
         <img
           [alt]="user.knownAs"
-          [src]="user.photoUrl"
+          [src]="photoUrl"
           class="card-img-top img-thumbnail"
         />
         <div class="card-body">
@@ -29,11 +29,11 @@
           </div>
           <div>
             <strong>Last Active:</strong>
-            <p>{{ user.lastActive }}</p>
+            <p>{{ user.lastActive | date: 'MMM d, y | h:mm a' }}</p>
           </div>
           <div>
             <strong>Member since:</strong>
-            <p>{{ user.created }}</p>
+            <p>{{ user.created | date: 'mediumDate' }}</p>
           </div>
         </div>
         <div class="card-footer">
@@ -99,7 +99,8 @@
             </form>
           </tab>
           <tab heading="Edit Photos">
-            <p>Photo edit will go here</p>
+            <app-photo-editor (getMemberPhotoChange)="updateMainPhoto($event)"
+                              [photos]="user.photos"></app-photo-editor>
           </tab>
         </tabset>
       </div>

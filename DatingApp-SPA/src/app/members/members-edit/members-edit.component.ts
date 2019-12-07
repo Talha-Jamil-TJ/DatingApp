@@ -6,6 +6,7 @@ import {User} from '../../_models/user';
 import {AlertifyService} from '../../_services/alertify.service';
 import {UserService} from '../../_services/user.service';
 import {AuthService} from '../../_services/auth.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-members-edit',
@@ -14,7 +15,10 @@ import {AuthService} from '../../_services/auth.service';
 })
 export class MembersEditComponent implements OnInit {
   @ViewChild('editForm', {static: false}) form: NgForm;
+
   user: User;
+  photoUrl: string;
+  photoSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +39,10 @@ export class MembersEditComponent implements OnInit {
     this.route.data.subscribe((data) => {
       this.user = data.user;
     });
+
+    this.photoSubscription = this.authService.currentPhotoUrl.subscribe(
+      (photoUrl) => (this.photoUrl = photoUrl),
+    );
   }
 
   updateUser() {
@@ -49,5 +57,10 @@ export class MembersEditComponent implements OnInit {
           this.alertify.error(error);
         },
       );
+  }
+
+  updateMainPhoto(photoUrl: string) {
+    this.user.photoUrl = photoUrl;
+    this.photoSubscription.unsubscribe();
   }
 }

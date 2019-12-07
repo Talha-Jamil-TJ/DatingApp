@@ -37,6 +37,8 @@ namespace DatingApp.API
 
             services.AddCors();
 
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+
             services.AddScoped<IAuthRepository, AuthRepository>();
 
             services.AddScoped<IDatingRepository, DatingRepository>();
@@ -62,7 +64,7 @@ namespace DatingApp.API
 
             services.AddMvc(option => option.EnableEndpointRouting = false)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                .AddNewtonsoftJson(opt => 
+                .AddNewtonsoftJson(opt =>
                     opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
 

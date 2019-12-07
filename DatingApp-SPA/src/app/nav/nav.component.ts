@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {AuthService} from '../_services/auth.service';
@@ -9,8 +9,9 @@ import {AlertifyService} from '../_services/alertify.service';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css'],
 })
-export class NavComponent implements OnInit {
+export class NavComponent implements OnInit, OnDestroy {
   model: any = {};
+  photoUrl: string;
 
   constructor(
     public authService: AuthService,
@@ -20,6 +21,9 @@ export class NavComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authService.currentPhotoUrl.subscribe((photoUrl) => {
+      this.photoUrl = photoUrl;
+    });
   }
 
   login() {
@@ -29,7 +33,6 @@ export class NavComponent implements OnInit {
         this.router.navigate(['members']);
       },
       (error) => {
-        // console.log(error);
         this.alertify.error(error);
       },
     );
@@ -41,7 +44,13 @@ export class NavComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.authService.decodedToken = null;
+    this.authService.currentUser = null;
     this.alertify.message('Logged out');
     this.router.navigate(['home']);
+  }
+
+  ngOnDestroy(): void {
   }
 }

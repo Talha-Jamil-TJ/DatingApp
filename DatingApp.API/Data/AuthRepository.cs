@@ -25,7 +25,7 @@ namespace DatingApp.API.Data
             user.PasswordSalt = passwordSalt;
 
             await _context.Users.AddAsync(user);
-            
+
             await _context.SaveChangesAsync();
 
             return user;
@@ -43,7 +43,9 @@ namespace DatingApp.API.Data
 
         public async Task<User> Login(string username, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await _context.Users
+                .Include(p => p.Photos)
+                .FirstOrDefaultAsync(x => x.Username == username);
 
             if (user == null)
                 return null;

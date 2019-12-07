@@ -15,8 +15,11 @@
     </ul>
 
     <div *ngIf="loggedIn()" class="dropdown nav-item" dropdown>
+      <span class="pull-left">
+        <img [src]="photoUrl" alt="">
+      </span>
       <a
-        class=" dropdown-toggle text-light nav-link"
+        class=" dropdown-toggle text-light nav-link pull-right mt-2"
         dropdownToggle
         role="button"
       >

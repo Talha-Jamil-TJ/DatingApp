@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DatingApp.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,9 +15,7 @@ namespace DatingApp.API.Data
 
         public async Task<User> Register(User user, string password)
         {
-            byte[] passwordHash, passwordSalt;
-
-            CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            CreatePasswordHash(password, out var passwordHash, out var passwordSalt);
 
             user.PasswordHash = passwordHash;
 
@@ -62,7 +59,7 @@ namespace DatingApp.API.Data
             {
                 var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
 
-                for (int i = 0; i < computedHash.Length; i++)
+                for (var i = 0; i < computedHash.Length; i++)
                 {
                     if (computedHash[i] != userPasswordHash[i]) return false;
                 }

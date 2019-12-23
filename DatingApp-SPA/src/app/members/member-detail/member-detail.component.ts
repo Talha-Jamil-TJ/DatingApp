@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions,} from 'ngx-gallery';
+import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery';
 
 import {User} from '../../_models/user';
 import {UserService} from '../../_services/user.service';
@@ -16,11 +16,7 @@ export class MemberDetailComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
-  constructor(
-    private userService: UserService,
-    private alertify: AlertifyService,
-    private route: ActivatedRoute,
-  ) {
+  constructor(private userService: UserService, private alertify: AlertifyService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {

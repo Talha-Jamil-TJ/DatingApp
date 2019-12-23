@@ -1,11 +1,12 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
-import {BsDropdownModule, TabsModule} from 'ngx-bootstrap';
+import {BsDatepickerModule, BsDropdownModule, TabsModule} from 'ngx-bootstrap';
 import {JwtModule} from '@auth0/angular-jwt';
 import {FileUploadModule} from 'ng2-file-upload';
+import {TimeAgoPipe} from 'time-ago-pipe';
 
 import {AppComponent} from './app.component';
 import {NavComponent} from './nav/nav.component';
@@ -44,12 +45,15 @@ export function localTokenGetter() {
     MemberDetailComponent,
     MembersEditComponent,
     PhotoEditorComponent,
+    TimeAgoPipe,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     BsDropdownModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     TabsModule.forRoot(),
     NgxGalleryModule,
     FileUploadModule,
